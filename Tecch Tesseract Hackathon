@@ -1,0 +1,29 @@
+from tkinter import *
+calc=Tk()
+calc.title("BMI Calculator")
+weight=Entry(calc,width=40,borderwidth=5,bg="skyblue",fg="darkblue")
+height=Entry(calc,width=40,borderwidth=5,bg="skyblue",fg="darkblue")
+weight.grid(row=0,column=1)
+height.grid(row=1,column=1)
+def bmicalc():
+    w=float(weight.get())
+    h=float(height.get())
+    bmi=w/(h*h)
+    result.config(text="Your BMI is {:.2f}".format(bmi))
+    if bmi>=18.5 and bmi<=24.9:
+        predict.config(text="you are Healthy")
+    elif bmi<18.5:
+        predict.config(text="you are Underweight")
+    elif bmi>24.9:
+        predict.config(text="you are Overweight")
+wt=Label(calc,text="Weight (KG)",bg="lightgreen",fg="darkgreen")
+wt.grid(row=0,column=0)
+ht=Label(calc,text="Height (m)",bg="lightgreen",fg="darkgreen")
+ht.grid(row=1,column=0)
+res=Button(calc,text="Calculate BMI",command=bmicalc,bg="pink",fg="purple")
+res.grid(row=2,column=0)
+result=Label(calc,text="",width=90,borderwidth=5,fg="darkgreen")
+result.grid(row=2,column=1)
+predict=Label(calc,text="",width=90,borderwidth=5,fg="darkblue")
+predict.grid(row=3,columnspan=2)
+calc.mainloop()
