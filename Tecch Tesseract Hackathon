@@ -1,10 +1,17 @@
 from tkinter import *
+import pyttsx3
+import tkinter as tk
+import customtkinter
+from tkinter import ttk
 calc=Tk()
 calc.title("BMI Calculator")
 weight=Entry(calc,width=40,borderwidth=5,bg="skyblue",fg="darkblue")
 height=Entry(calc,width=40,borderwidth=5,bg="skyblue",fg="darkblue")
 weight.grid(row=0,column=1)
 height.grid(row=1,column=1)
+my_entry=tk.StringVar()
+
+
 def bmicalc():
     w=float(weight.get())
     h=float(height.get())
@@ -12,10 +19,16 @@ def bmicalc():
     result.config(text="Your BMI is {:.2f}".format(bmi))
     if bmi>=18.5 and bmi<=24.9:
         predict.config(text="you are Healthy")
+        s= "you are Healthy"
     elif bmi<18.5:
         predict.config(text="you are Underweight")
+        s= "you are Underweight"
+        
     elif bmi>24.9:
         predict.config(text="you are Overweight")
+        s="you are Overweight"
+    my_entry.set(s)
+    talk()
 wt=Label(calc,text="Weight (KG)",bg="lightgreen",fg="darkgreen")
 wt.grid(row=0,column=0)
 ht=Label(calc,text="Height (m)",bg="lightgreen",fg="darkgreen")
@@ -26,4 +39,12 @@ result=Label(calc,text="",width=90,borderwidth=5,fg="darkgreen")
 result.grid(row=2,column=1)
 predict=Label(calc,text="",width=90,borderwidth=5,fg="darkblue")
 predict.grid(row=3,columnspan=2)
-calc.mainloop()
+
+def talk():
+    engine=pyttsx3.init()
+    engine.say(my_entry.get())
+    engine.runAndWait()
+
+
+calc.mainloop()                               
+ 
